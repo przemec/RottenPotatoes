@@ -21,8 +21,9 @@ namespace rottenpotatoes
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddControllersWithViews();
+      services.AddSingleton<SeedData>();
 
+      services.AddControllersWithViews();
       services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration["Data:Movies:ConnectionString"]));
       services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:AppIdentity:ConnectionString"]));
       services.AddTransient<IMovieRepository, EFMovieRepository>();
@@ -40,7 +41,7 @@ namespace rottenpotatoes
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedData seeder)
     {
       if (env.IsDevelopment())
       {
@@ -66,7 +67,9 @@ namespace rottenpotatoes
           endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
           endpoints.MapRazorPages();
         });
+
       IdentitySeedData.EnsurePopulated(app);
+      seeder.EnsurePopulated();
     }
   }
 }
