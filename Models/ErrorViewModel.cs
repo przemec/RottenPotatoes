@@ -1,5 +1,3 @@
-using System;
-
 namespace rottenpotatoes.Models
 {
     public class ErrorViewModel
