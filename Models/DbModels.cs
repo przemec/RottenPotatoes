@@ -65,7 +65,7 @@ namespace rottenpotatoes.Models
 
   public class EFMovieRepository : IMovieRepository
   {
-    private AppDbContext _applicationDbContext;
+    private readonly AppDbContext _applicationDbContext;
     public EFMovieRepository(AppDbContext applicationDbContext)
     {
       _applicationDbContext = applicationDbContext;

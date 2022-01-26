@@ -7,7 +7,7 @@ namespace rottenpotatoes
 {
   public class SeedData
   {
-    private AppDbContext _dbContext;
+    private readonly AppDbContext _dbContext;
     public SeedData(AppDbContext dbContext)
     {
       _dbContext = dbContext;

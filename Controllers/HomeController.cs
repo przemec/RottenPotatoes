@@ -10,7 +10,7 @@ namespace rottenpotatoes.Controllers
 {
   public class HomeController : Controller
   {
-    private AppDbContext _dbContext;
+    private readonly AppDbContext _dbContext;
     private readonly ILogger<HomeController> _logger;
     public HomeController(ILogger<HomeController> logger, AppDbContext dbContext)
     {
