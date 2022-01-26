@@ -27,7 +27,7 @@ namespace RottenPotatoes.Models
       using (var scope = app.ApplicationServices.CreateScope())
       {
         var userManager = (UserManager<IdentityUser>)scope.ServiceProvider.GetService(typeof(UserManager<IdentityUser>));
-        IdentityUser admin = await userManager.FindByIdAsync(adminUser);
+        IdentityUser admin = await userManager.FindByNameAsync(adminUser);
         if (admin == null)
         {
           admin = new IdentityUser(adminUser);
@@ -35,7 +35,7 @@ namespace RottenPotatoes.Models
         }
         foreach (var u in default_users)
         {
-          IdentityUser user = await userManager.FindByIdAsync(u[0]);
+          IdentityUser user = await userManager.FindByNameAsync(u[0]);
           if (user == null)
           {
             user = new IdentityUser(u[0]);
