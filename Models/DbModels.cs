@@ -9,19 +9,34 @@ namespace RottenPotatoes.Models
     public string Title { get; set; }
     public string Director { get; set; }
     public string Producer { get; set; }
-    public string Description { get; set; }
+    public string ImageSrc { get; set; }
     public string Genre { get; set; }
     public string Runtime { get; set; }
     public List<UserVote> UserVotes { get; set; }
+    public List<Description> Descriptions { get; set; }
     public Movie() { }
-    public Movie(string title, string director, string producer, string description, string genre, string runtime)
+    public Movie(string title, string director, string producer, string imagesrc, string genre, string runtime)
     {
       Title = title;
       Director = director;
       Producer = producer;
-      Description = description;
+      ImageSrc = imagesrc;
       Genre = genre;
       Runtime = runtime;
+    }
+  }
+  
+  public class Description
+  {
+    public int Id { get; set; }
+    public int MovieId { get; set; }
+    public string Desc { get; set; }
+    public Movie Movie { get; set; }
+    public Description() { }
+    public Description(int movieid, string description)
+    {
+      MovieId = movieid;
+      Desc = description;
     }
   }
 
@@ -44,6 +59,7 @@ namespace RottenPotatoes.Models
   {
     IQueryable<Movie> Movies { get; }
     IQueryable<UserVote> UserVotes { get; }
+    IQueryable<Description> Descriptions { get; }
   }
 
 
@@ -56,5 +72,6 @@ namespace RottenPotatoes.Models
     }
     public IQueryable<Movie> Movies => _applicationDbContext.Movies;
     public IQueryable<UserVote> UserVotes => _applicationDbContext.UserVotes;
+    public IQueryable<Description> Descriptions => _applicationDbContext.Descriptions;
   }
 }

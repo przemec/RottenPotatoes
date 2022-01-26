@@ -9,5 +9,6 @@ namespace RottenPotatoes.Models
     { }
     public DbSet<Movie> Movies { get; set; }
     public DbSet<UserVote> UserVotes { get; set; }
+    public DbSet<Description> Descriptions { get; set; }
   }
 }
