@@ -1,6 +1,7 @@
 
 using System;
-using RottenPotatoes.Models;
+using System.Linq;
+using rottenpotatoes.Models;
 
 namespace rottenpotatoes
 {
@@ -14,17 +15,17 @@ namespace rottenpotatoes
 
     public async void EnsurePopulated()
     {
-      if (await _dbContext.Movies.FindAsync(1) == null)
+      if (!_dbContext.Movies.Any())
       {
         await _dbContext.Movies.AddRangeAsync(default_movies);
         await _dbContext.SaveChangesAsync();
       }
-      if (await _dbContext.Descriptions.FindAsync(1) == null)
+      if (!_dbContext.Descriptions.Any())
       {
         await _dbContext.Descriptions.AddRangeAsync(default_descriptions);
         await _dbContext.SaveChangesAsync();
       }
-      if (await _dbContext.UserVotes.FindAsync(1) == null)
+      if (!_dbContext.UserVotes.Any())
       {
         await _dbContext.UserVotes.AddRangeAsync(default_user_votes);
         await _dbContext.SaveChangesAsync();
@@ -101,6 +102,9 @@ namespace rottenpotatoes
       new UserVote("user4", 6, 2),
       new UserVote("user5", 1, 5),
       new UserVote("user5", 2, 4),
+      new UserVote("user5", 3, 5),
+      new UserVote("user5", 5, 5),
+      new UserVote("user5", 6, 3),
     };
   }
 }

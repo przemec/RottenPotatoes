@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RottenPotatoes.Models
+namespace rottenpotatoes.Models
 {
   public class Movie
   {
