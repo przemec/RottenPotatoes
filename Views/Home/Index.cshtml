@@ -1,4 +1,7 @@
-﻿@model dynamic
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model dynamic
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -18,12 +21,17 @@
                 <td>
                     <strong>Score</strong>
                 </td>
+                @if (User.Identity.Name == "Admin")
+                {
+                    <td></td>
+                }
             </tr>
             @foreach (var movie in Model.Movies)
             {
                 <tr>
                     <td>
-                        <a class="nav-link text-dark" style="text-decoration: underline;" asp-controller="Home" asp-action="MovieDetails" asp-route-movieid="@movie.MovieId">@movie.Title</a>
+                        <a class="nav-link text-dark" style="text-decoration: underline;" asp-controller="Home"
+                        asp-action="MovieDetails" asp-route-movieid="@movie.MovieId">@movie.Title</a>
                     </td>
                     <td style="vertical-align: middle;">
                         @movie.Director
@@ -38,6 +46,22 @@
                             @:No score
                         }
                     </td>
+                    @if (User.Identity.Name == "Admin")
+                    {
+                        <td>
+                            @Html.ActionLink(
+                                "Delete", 
+                                "DeleteMovie", 
+                                "Home", 
+                                new { movieid = @movie.MovieId }, 
+                                new { 
+                                    onclick = $"return confirm('Do you really want to delete {@movie.Title} from database?')", 
+                                    @style="text-decoration: none; color: white; width: 90px;" ,
+                                    @class="btn btn-primary text-white"
+                                }
+                            )
+                        </td>
+                    }
                 </tr>
             }
         </table>

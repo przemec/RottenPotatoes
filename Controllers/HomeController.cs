@@ -64,6 +64,13 @@ namespace rottenpotatoes.Controllers
       });
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public async Task<IActionResult> DeleteMovie(int movieid)
+    {
+      var movie_to_delete = _dbContext.Movies.First(m => m.MovieId == movieid);
+      _dbContext.Remove(movie_to_delete);
+      await _dbContext.SaveChangesAsync();
+      return Redirect("/");
+    }
     public IActionResult Error()
     {
       return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
