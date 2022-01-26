@@ -5,10 +5,8 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to RottenPotatoes</h1>
-    <p>Browse Your favourite movies and rate them!</p>
-
-    <div class="container-fluid">
-        <h2>Current movies</h2>
+    <h3 class="display-7" style="font-weight: 300;">Browse Your favourite movies and rate them!</h3>
+    <div style="margin-top: 30px;" class="container-fluid">
         <table class="table">
             <tr>
                 <td>
@@ -25,12 +23,12 @@
             {
                 <tr>
                     <td>
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="MovieDetails" asp-route-movieid="@movie.MovieId">@movie.Title</a>
+                        <a class="nav-link text-dark" style="text-decoration: underline;" asp-controller="Home" asp-action="MovieDetails" asp-route-movieid="@movie.MovieId">@movie.Title</a>
                     </td>
-                    <td>
+                    <td style="vertical-align: middle;">
                         @movie.Director
                     </td>
-                    <td>
+                    <td style="vertical-align: middle;">
                         @try
                         {
                             @(Math.Round(Model.Votes[movie.MovieId][0], 1));@:/5

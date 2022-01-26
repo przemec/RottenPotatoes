@@ -3,26 +3,26 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData?["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="justify-content: center; margin: auto">
+    <div class="col-md-4" style="background: #eee; padding: 20px; border-radius: 20px;">
         <section>
             <form id="account" method="post">
-                <h4>Use an existing account to log in.</h4>
+                <h1 class="text-center">@ViewData?["Title"]</h1>
+                <h4 class="text-center">Use an existing account to log in.</h4>
                 <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger text-center"></div>
                 <div class="form-group">
-                    <label asp-for="Nick"></label>
-                    <input asp-for="Nick" class="form-control" />
-                    <span asp-validation-for="Nick" class="text-danger"></span>
+                    <label asp-for="Nick" class="text-center" style="width: 100%;"></label>
+                    <input asp-for="Nick" class="form-control text-center" />
+                    <span asp-validation-for="Nick" class="text-danger text-center"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <label asp-for="Password" class="text-center" style="width: 100%;"></label>
+                    <input asp-for="Password" class="form-control text-center" />
+                    <span asp-validation-for="Password" class="text-danger text-center"></span>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                <div class="form-group" style="margin-top: 10px; width: 100%;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Log in</button>
                 </div>
             </form>
         </section>
