@@ -70,7 +70,7 @@ namespace rottenpotatoes
         "Denis Villeneuve, Mary Parent, Cale Boyter, Joseph Caracciolo Jr.",
         "../images/Dune.jpg",
         "Adventure, Sci-Fi",
-        "2h 13m"
+        "2h 35m"
       ),
       new Movie(
         "Don't look up",
@@ -78,7 +78,7 @@ namespace rottenpotatoes
         "Adam McKay, Kevin J. Messick",
         "../images/DontLookUp.jpg",
         "Comedy",
-        "2h 35m"
+        "2h 18m"
       ),
     };
     private Description[] default_descriptions = new Description[] {

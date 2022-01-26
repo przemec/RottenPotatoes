@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -57,7 +58,7 @@ namespace rottenpotatoes.Controllers
       {
         MovieId = movieid,
         Movie = await _dbContext.Movies.FindAsync(movieid),
-        Description = await _dbContext.Descriptions.FindAsync(movieid),
+        Description = _dbContext.Descriptions.SingleOrDefault(d => d.MovieId == movieid),
         Score = score,
         VotesCount = votes_count,
       });
