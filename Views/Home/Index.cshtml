@@ -25,7 +25,7 @@
             {
                 <tr>
                     <td>
-                        @movie.Title
+                        <a class="nav-link text-dark" asp-controller="Home" asp-action="MovieDetails" asp-route-movieid="@movie.MovieId">@movie.Title</a>
                     </td>
                     <td>
                         @movie.Director

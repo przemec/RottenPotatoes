@@ -1,0 +1,22 @@
+﻿@model MovieDetailsModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Movie details";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Movie.Title</h1>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <img src="@Model.Movie.ImageSrc" style="height: 300px;" alt="Movie poster picture" />
+        </li>
+        <li class="list-group-item">Score: <strong>@(Math.Round(Model.Score, 1))</strong>/5 (@Model.VotesCount votes)</li>
+        <li class="list-group-item">Director: <strong>@Model.Movie.Director</strong></li>
+        <li class="list-group-item">@Model.Description.Desc</li>
+        <li class="list-group-item">Producer: <strong>@Model.Movie.Producer</strong></li>
+        <li class="list-group-item">Genre: <strong>@Model.Movie.Genre</strong></li>
+        <li class="list-group-item">Runtime: <strong>@Model.Movie.Runtime</strong></li>
+    </ul>
+</div>
