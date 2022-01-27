@@ -8,17 +8,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using rottenpotatoes.Models;
 using rottenpotatoes.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace rottenpotatoes.Controllers
 {
   public class HomeController : Controller
   {
-    private readonly AppDbContext _dbContext;
     private readonly ILogger<HomeController> _logger;
-    public HomeController(ILogger<HomeController> logger, AppDbContext dbContext)
+    private readonly AppDbContext _dbContext;
+    private UserManager<IdentityUser> _userManager;
+    private SignInManager<IdentityUser> _signInManager;
+    public HomeController(ILogger<HomeController> logger, AppDbContext dbContext, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
     {
       _logger = logger;
       _dbContext = dbContext;
+      _userManager = userManager;
+      _signInManager = signInManager;
     }
 
     public IActionResult Index()
@@ -43,10 +48,18 @@ namespace rottenpotatoes.Controllers
       mymodel.Votes = votes;
       return View(mymodel);
     }
+
     public async Task<IActionResult> MovieDetails(int movieid)
     {
       decimal score = 0;
       decimal votes_count = 0;
+      string current_user_name;
+      int user_score = 0;
+      if (_signInManager.IsSignedIn(User))
+      {
+        current_user_name = User.Identity.Name;
+        user_score = _dbContext.UserVotes.SingleOrDefault(uv => (uv.MovieId == movieid && uv.UserName == current_user_name))?.Score ?? 0;
+      }
       foreach (var vote in _dbContext.UserVotes)
       {
         if (vote.MovieId == movieid)
@@ -62,14 +75,9 @@ namespace rottenpotatoes.Controllers
         Description = _dbContext.Descriptions.SingleOrDefault(d => d.MovieId == movieid),
         Score = score,
         VotesCount = votes_count,
+        UserScore = user_score,
+        HasUserVoted = user_score != 0
       });
-    }
-    public async Task<IActionResult> DeleteMovie(int movieid)
-    {
-      var movie_to_delete = _dbContext.Movies.First(m => m.MovieId == movieid);
-      _dbContext.Remove(movie_to_delete);
-      await _dbContext.SaveChangesAsync();
-      return Redirect("/");
     }
 
     [HttpGet]
@@ -104,6 +112,44 @@ namespace rottenpotatoes.Controllers
       }
       return View(movieAddModel);
     }
+
+    public async Task<IActionResult> DeleteMovie(int movieid)
+    {
+      var movie_to_delete = _dbContext.Movies.First(m => m.MovieId == movieid);
+      _dbContext.Movies.Remove(movie_to_delete);
+      await _dbContext.SaveChangesAsync();
+      return Redirect("/");
+    }
+
+    public async Task<IActionResult> AddVote(int uservote, int movieid, string redirectUrl = "/")
+    {
+      if (uservote >= 1 && uservote <= 5)
+      {
+        UserVote new_vote = new UserVote(User.Identity.Name, movieid, uservote);
+        await _dbContext.UserVotes.AddAsync(new_vote);
+        await _dbContext.SaveChangesAsync();
+      }
+      return Redirect(redirectUrl);
+    }
+
+    public Task<IActionResult> ChangeVote(int uservote, int movieid, string redirectUrl = "/")
+    {
+      if (uservote >= 1 && uservote <= 5)
+      {
+        var vote_to_delete = _dbContext.UserVotes.First(uv => (uv.MovieId == movieid && uv.UserName == User.Identity.Name));
+        _dbContext.UserVotes.Remove(vote_to_delete);
+      }
+      return AddVote(uservote, movieid, redirectUrl);
+    }
+
+    public async Task<IActionResult> RemoveVote(int movieid)
+    {
+      var vote_to_delete = _dbContext.UserVotes.First(uv => (uv.MovieId == movieid && uv.UserName == User.Identity.Name));
+      _dbContext.UserVotes.Remove(vote_to_delete);
+      await _dbContext.SaveChangesAsync();
+      return Redirect($"/Home/MovieDetails?movieid={movieid}");
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

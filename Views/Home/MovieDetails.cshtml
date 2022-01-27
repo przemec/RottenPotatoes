@@ -12,7 +12,57 @@
         <li class="list-group-item">
             <img src="@Model.Movie.ImageSrc" style="height: 300px;" alt="Movie poster picture" />
         </li>
-        <li class="list-group-item">Score: <strong>@(Math.Round(Model.Score, 1))</strong>/5 (@Model.VotesCount votes)</li>
+        <li class="list-group-item">
+            Score: <strong>@(Math.Round(Model.Score, 1))</strong>/5 (@Model.VotesCount votes)
+        </li>
+        @if (SignInManager.IsSignedIn(User)) {
+            <li class="list-group-item">
+            @if (!Model.HasUserVoted) {
+                <form action="/Home/AddVote" method="get">
+                    <input type="hidden" value="@Model.Movie.MovieId" name="movieid" />
+                    <input type="hidden" value="/Home/MovieDetails?movieid=@Model.Movie.MovieId" name="redirectUrl" />
+                    <fieldset>
+                        <div>Vote now:</div>
+                        <select id="uservote" class="form-select" style="width: 90px; display: inline-block; vertical-align: middle;" name="uservote">
+                            <option value=1>1</option>
+                            <option value=2>2</option>
+                            <option value=3>3</option>
+                            <option value=4>4</option>
+                            <option value=5 selected>5</option>
+                        </select>
+                        <input type="submit" value="Vote" class="btn btn-primary" style="width: 90px; vertical-align: middle;" />
+                    </fieldset>
+                </form>
+            }
+            else if (Model.HasUserVoted) {
+                <form action="/Home/ChangeVote" method="get">
+                    <input type="hidden" value="@Model.Movie.MovieId" name="movieid" />
+                    <input type="hidden" value="/Home/MovieDetails?movieid=@Model.Movie.MovieId" name="redirectUrl" />
+                    <fieldset>
+                        @Html.ActionLink(
+                            "Remove Vote", 
+                            "RemoveVote", 
+                            "Home", 
+                            new { movieid = @Model.Movie.MovieId }, 
+                            new { 
+                                onclick = $"return confirm(`Do you really want to delete Your previous vote for '{@Model.Movie.Title}'?`)", 
+                                @class="btn btn-outline-primary"
+                            }
+                        )
+                        <select id="uservote" class="form-select" style="width: 90px; display: inline-block; vertical-align: middle;" name="uservote">
+                            @if(Model.UserScore == 1){<option value=1 selected>1</option>}else{<option value=1>1</option>}
+                            @if(Model.UserScore == 2){<option value=2 selected>2</option>}else{<option value=2>2</option>}
+                            @if(Model.UserScore == 3){<option value=3 selected>3</option>}else{<option value=3>3</option>}
+                            @if(Model.UserScore == 4){<option value=4 selected>4</option>}else{<option value=4>4</option>}
+                            @if(Model.UserScore == 5){<option value=5 selected>5</option>}else{<option value=5>5</option>}
+                        </select>
+                        <input type="submit" value="Change Vote" class="btn btn-primary" style="width: 140px; vertical-align: middle;" />
+                        <div>(Your current vote: @Model.UserScore)</div>
+                    </fieldset>
+                </form>
+            }
+            </li>
+        }
         <li class="list-group-item">Director: <strong>@Model.Movie.Director</strong></li>
         <li class="list-group-item">@Model.Description.Desc</li>
         <li class="list-group-item">Producer: <strong>@Model.Movie.Producer</strong></li>
