@@ -45,7 +45,7 @@ namespace rottenpotatoes.Controllers
           }
         }
       }
-      ModelState.AddModelError("", "Nieprawidłowy nick lub hasło");
+      ModelState.AddModelError("", "Wrong nickname or password");
       return View(loginModel);
     }
 

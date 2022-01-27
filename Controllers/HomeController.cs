@@ -63,7 +63,6 @@ namespace rottenpotatoes.Controllers
         VotesCount = votes_count,
       });
     }
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public async Task<IActionResult> DeleteMovie(int movieid)
     {
       var movie_to_delete = _dbContext.Movies.First(m => m.MovieId == movieid);
@@ -71,6 +70,40 @@ namespace rottenpotatoes.Controllers
       await _dbContext.SaveChangesAsync();
       return Redirect("/");
     }
+
+    [HttpGet]
+    public IActionResult AddMovie()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddMovie(MovieAddModel movieAddModel)
+    {
+      if (ModelState.IsValid)
+      {
+        Movie movie = new Movie(
+          movieAddModel.Title,
+          movieAddModel.Director,
+          movieAddModel.Producer,
+          movieAddModel.ImageSrc,
+          movieAddModel.Genre,
+          movieAddModel.Runtime
+        );
+        await _dbContext.Movies.AddAsync(movie);
+        await _dbContext.SaveChangesAsync();
+        var new_movie_id = _dbContext.Movies.OrderBy(m => m.MovieId).Last(m => m.Title == movieAddModel.Title).MovieId;
+        Description description = new Description(
+          new_movie_id,
+          movieAddModel.Desc
+        );
+        await _dbContext.Descriptions.AddAsync(description);
+        await _dbContext.SaveChangesAsync();
+        return Redirect("/");
+      }
+      return View(movieAddModel);
+    }
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
       return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

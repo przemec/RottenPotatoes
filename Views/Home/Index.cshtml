@@ -64,6 +64,24 @@
                     }
                 </tr>
             }
+            @if (User.Identity.Name == "Admin")
+            {
+                <tr>
+                    <td colspan="3" style="vertical-align: middle;">Add new movie to database</td>
+                    <td>
+                        @Html.ActionLink(
+                            "Add new", 
+                            "AddMovie", 
+                            "Home", 
+                            null, 
+                            new {
+                                @style="text-decoration: none; color: white; width: 90px;",
+                                @class="btn btn-success text-white"
+                            }
+                        )
+                    </td>
+                </tr>
+            }
         </table>
     </div>
 </div>

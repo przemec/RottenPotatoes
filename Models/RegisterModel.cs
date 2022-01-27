@@ -5,6 +5,7 @@ namespace rottenpotatoes.Models
   public class RegisterModel
   {
     [Required(ErrorMessage = "Enter Your nickname!")]
+    [RegularExpression("^[0-9a-zA-Z]+$", ErrorMessage = "Nickname can contain only numbers and letters")]
     [StringLength(15, ErrorMessage = "Nickname must contain between 3 and 15 characters!", MinimumLength = 3)]
     public string Nick { get; set; }
 
