@@ -1,7 +1,6 @@
-
-using System;
 using System.Linq;
 using rottenpotatoes.Models;
+using rottenpotatoes.Data;
 
 namespace rottenpotatoes
 {

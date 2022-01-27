@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace rottenpotatoes.Models
+namespace rottenpotatoes.Data
 {
   public class AppIdentityDbContext : IdentityDbContext<IdentityUser>
   {

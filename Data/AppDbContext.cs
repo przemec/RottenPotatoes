@@ -1,7 +1,7 @@
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using rottenpotatoes.Models;
 
-namespace rottenpotatoes.Models
+namespace rottenpotatoes.Data
 {
   public class AppDbContext : DbContext
   {

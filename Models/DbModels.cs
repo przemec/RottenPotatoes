@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using rottenpotatoes.Data;
 
 namespace rottenpotatoes.Models
 {
