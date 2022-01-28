@@ -15,7 +15,7 @@ namespace rottenpotatoes.Controllers
       _dbContext = dbContext;
     }
 
-    [HttpPost("ListTitles")]
+    [HttpGet("ListTitles")]
     public ActionResult<List<string>> ListTitles()
     {
       List<string> response = new List<string>();
@@ -38,31 +38,33 @@ namespace rottenpotatoes.Controllers
         Director = director;
       }
     }
-    [HttpPost("ListTitlesWithIds")]
-    public ActionResult<List<MovieWithId>> ListTitlesWithIds()
+    [HttpGet("GetTitlesWithIds")]
+    public ActionResult<List<MovieWithId>> GetTitlesWithIds()
     {
       List<MovieWithId> response = new List<MovieWithId>();
       foreach (var movie in _dbContext.Movies)
       {
         response.Add(new MovieWithId(movie.MovieId, movie.Title, movie.Director));
       }
-      return CreatedAtAction("ListTitlesWithIds", response);
+      return CreatedAtAction("GetTitlesWithIds", response);
     }
 
     public class MovieWithVotes
     {
+      public int Id { get; set; }
       public string Title { get; set; }
       public decimal Score { get; set; }
       public decimal Votes_count { get; set; }
-      public MovieWithVotes(string title, decimal score, decimal votescount)
+      public MovieWithVotes(int id, string title, decimal score, decimal votescount)
       {
+        Id = id;
         Title = title;
         Score = score;
         Votes_count = votescount;
       }
     }
-    [HttpPost("ListTitlesWithVotes")]
-    public ActionResult<List<MovieWithVotes>> ListTitlesWithVotes()
+    [HttpGet("GetTitlesWithVotes")]
+    public ActionResult<List<MovieWithVotes>> GetTitlesWithVotes()
     {
       List<MovieWithVotes> response = new List<MovieWithVotes>();
       var movies = _dbContext.Movies.ToList();
@@ -80,9 +82,9 @@ namespace rottenpotatoes.Controllers
             votes_count += 1;
           }
         }
-        response.Add(new MovieWithVotes(movie.Title, score, votes_count));
+        response.Add(new MovieWithVotes(movieid, movie.Title, score, votes_count));
       }
-      return CreatedAtAction("ListTitlesWithVotes", response);
+      return CreatedAtAction("GetTitlesWithVotes", response);
     }
 
     public class MovieDetails
@@ -101,8 +103,8 @@ namespace rottenpotatoes.Controllers
         Runtime = runtime;
       }
     }
-    [HttpPost("ListMovieDetails")]
-    public ActionResult<MovieDetails> ListMovieDetails(int id)
+    [HttpGet("GetMovieDetailsById")]
+    public ActionResult<MovieDetails> GetMovieDetailsById(int id)
     {
       var mov = _dbContext.Movies.Find(id);
       MovieDetails response = new MovieDetails(
@@ -112,7 +114,7 @@ namespace rottenpotatoes.Controllers
         mov.Genre,
         mov.Runtime
       );
-      return CreatedAtAction("ListMovieDetails", response);
+      return CreatedAtAction("GetMovieDetailsById", response);
     }
 
     public class MovieDescription
@@ -125,8 +127,8 @@ namespace rottenpotatoes.Controllers
         Description = description;
       }
     }
-    [HttpPost("ListMovieDescription")]
-    public ActionResult<MovieDescription> ListMovieDescription(int id)
+    [HttpGet("GetMovieDescriptionById")]
+    public ActionResult<MovieDescription> GetMovieDescriptionById(int id)
     {
       string mov = _dbContext.Movies.Find(id).Title;
       string desc = _dbContext.Descriptions.SingleOrDefault(d => d.MovieId == id).Desc;
@@ -134,7 +136,7 @@ namespace rottenpotatoes.Controllers
         mov,
         desc
       );
-      return CreatedAtAction("ListMovieDescription", response);
+      return CreatedAtAction("GetMovieDescriptionById", response);
     }
   }
 }
