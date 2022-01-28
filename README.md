@@ -16,7 +16,7 @@ To set up database, execute 2 CLI commands from project's main directory (make s
 
 `dotnet watch run`
 
-You can login to Admin account with login `Admin` and `Secret123$` password.
+You can log in to Admin account with nickname `Admin` and `Secret123$` password.
 
 There are also 5 base user accounts: `userX` (where `X` stands for numbers from 1 to 5). All of that users have the same password: `Haslo12#`
 
