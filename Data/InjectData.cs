@@ -35,7 +35,7 @@ namespace rottenpotatoes
         "Black Widow",
         "Cate Shortland",
         "Kevin Feige",
-        "../images/BlackWidow.jpg",
+        "https://i.imgur.com/2cSWRN6.jpg",
         "Adventure, Action",
         "2h 13m"
       ),
@@ -43,7 +43,7 @@ namespace rottenpotatoes
         "The Green Knight",
         "David Lowery",
         "Tim Headington, Toby Halbrooks, James M. Johnston, Theresa Steele Page",
-        "../images/TheGreenKnight.jpg",
+        "https://i.imgur.com/BdZq8cC.jpg",
         "Adventure, Fantasy",
         "2h 5m"
       ),
@@ -51,7 +51,7 @@ namespace rottenpotatoes
         "Pig",
         "Michael Sarnoski",
         "Vanessa Block, Dimitra Tsingou, Thomas Benski, Ben Giladi, Dori A. Rath, Joseph Restaino, David Carrico, Adam Paulsen, Steve Tisch, Nicolas Cage",
-        "../images/Pig.jpg",
+        "https://i.imgur.com/fMW0Mi7.jpg",
         "Mystery & Thriller, Drama",
         "1h 32m"
       ),
@@ -59,7 +59,7 @@ namespace rottenpotatoes
         "Nobody",
         "Ilya Naishuller",
         "Kelly McCormick, David Leitch, Braden Aftergood, Bob Odenkirk, Marc Provissiero",
-        "../images/Nobody.jpg",
+        "https://i.imgur.com/WNLHUHR.jpg",
         "Comedy, Action, Mystery & Thriller",
         "1h 32m"
       ),
@@ -67,7 +67,7 @@ namespace rottenpotatoes
         "Dune",
         "Denis Villeneuve",
         "Denis Villeneuve, Mary Parent, Cale Boyter, Joseph Caracciolo Jr.",
-        "../images/Dune.jpg",
+        "https://i.imgur.com/7ISyrIG.jpg",
         "Adventure, Sci-Fi",
         "2h 35m"
       ),
@@ -75,7 +75,7 @@ namespace rottenpotatoes
         "Don't look up",
         "Adam McKay",
         "Adam McKay, Kevin J. Messick",
-        "../images/DontLookUp.jpg",
+        "https://i.imgur.com/SGZcWBv.jpg",
         "Comedy",
         "2h 18m"
       ),
