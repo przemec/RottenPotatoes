@@ -6,8 +6,7 @@
 <div class="row" style="justify-content: center; margin: auto">
     <div class="col-md-7" style="background: #eee; padding: 20px; border-radius: 20px;">
         <form method="post">
-            <h1 class="text-center">@ViewData["Title"]</h1>
-            <h4 class="text-center">Edit in database selected movie.</h4>
+            <h1 class="text-center">Edit '@Model.Title'</h4>
             <hr />
             <input asp-for="MovieId" type="hidden" value="@Model.MovieId" />
             <input asp-for="MovieDescId" type="hidden" value="@Model.MovieDescId" />

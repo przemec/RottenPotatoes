@@ -162,7 +162,7 @@ namespace rottenpotatoes.Controllers
         );
         _dbContext.Descriptions.Update(description);
         await _dbContext.SaveChangesAsync();
-        return Redirect("/");
+        return Redirect($"/Home/MovieDetails?movieid={movieEditModel.MovieId}");
       }
       return View(movieEditModel);
     }
