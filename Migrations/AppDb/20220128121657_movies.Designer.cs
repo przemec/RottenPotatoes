@@ -9,7 +9,7 @@ using rottenpotatoes.Data;
 namespace rottenpotatoes.Migrations.AppDb
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220127124518_movies")]
+    [Migration("20220128121657_movies")]
     partial class movies
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

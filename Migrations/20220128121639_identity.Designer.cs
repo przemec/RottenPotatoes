@@ -10,7 +10,7 @@ using rottenpotatoes.Data;
 namespace rottenpotatoes.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20220127124458_identity")]
+    [Migration("20220128121639_identity")]
     partial class identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
