@@ -8,6 +8,23 @@
 
 <div class="text-center">
     <h1 class="display-4">@Model.Movie.Title</h1>
+    @if (User.Identity.Name == "Admin")
+    {
+        <div style="margin-bottom: 10px;">
+            <a class="btn btn-primary text-white" asp-controller="Home" asp-action="EditMovie" asp-route-movieid="@Model.Movie.MovieId">Edit Movie</a>
+            @Html.ActionLink(
+                "Remove Movie", 
+                "RemoveMovie", 
+                "Home", 
+                new { movieid = @Model.Movie.MovieId }, 
+                new { 
+                    onclick = $"return confirm('Do you really want to remove {@Model.Movie.Title} from database?')", 
+                    @style="text-decoration: none; width: 130px;",
+                    @class="btn btn-outline-primary"
+                }
+            )
+        </div>
+    }
     <ul class="list-group">
         <li class="list-group-item">
             <img src="@Model.Movie.ImageSrc" style="height: 300px;" alt="Movie poster picture" />
@@ -45,7 +62,7 @@
                             "Home", 
                             new { movieid = @Model.Movie.MovieId }, 
                             new { 
-                                onclick = $"return confirm(`Do you really want to delete Your previous vote for '{@Model.Movie.Title}'?`)", 
+                                onclick = $"return confirm(`Do you really want to remove Your previous vote for '{@Model.Movie.Title}'?`)", 
                                 @class="btn btn-outline-primary"
                             }
                         )

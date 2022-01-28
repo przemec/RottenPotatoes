@@ -113,12 +113,58 @@ namespace rottenpotatoes.Controllers
       return View(movieAddModel);
     }
 
-    public async Task<IActionResult> DeleteMovie(int movieid)
+    public async Task<IActionResult> RemoveMovie(int movieid)
     {
       var movie_to_delete = _dbContext.Movies.First(m => m.MovieId == movieid);
       _dbContext.Movies.Remove(movie_to_delete);
       await _dbContext.SaveChangesAsync();
       return Redirect("/");
+    }
+
+    [HttpGet]
+    public IActionResult EditMovie(int movieid)
+    {
+      var movie_to_edit = _dbContext.Movies.First(m => m.MovieId == movieid);
+      var desc_to_edit = _dbContext.Descriptions.First(m => m.MovieId == movieid);
+      MovieEditModel movie = new MovieEditModel{
+        MovieId = movieid,
+        MovieDescId = desc_to_edit.Id,
+        Title = movie_to_edit.Title,
+        Director = movie_to_edit.Director,
+        Producer = movie_to_edit.Producer,
+        ImageSrc = movie_to_edit.ImageSrc,
+        Genre = movie_to_edit.Genre,
+        Runtime = movie_to_edit.Runtime,
+        Desc = desc_to_edit.Desc,
+      };
+      return View(movie);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditMovie(MovieEditModel movieEditModel)
+    {
+      if (ModelState.IsValid)
+      {
+        Movie movie = new Movie(
+          movieEditModel.MovieId,
+          movieEditModel.Title,
+          movieEditModel.Director,
+          movieEditModel.Producer,
+          movieEditModel.ImageSrc,
+          movieEditModel.Genre,
+          movieEditModel.Runtime
+        );
+        _dbContext.Movies.Update(movie);
+        Description description = new Description(
+          movieEditModel.MovieDescId,
+          movieEditModel.MovieId,
+          movieEditModel.Desc
+        );
+        _dbContext.Descriptions.Update(description);
+        await _dbContext.SaveChangesAsync();
+        return Redirect("/");
+      }
+      return View(movieEditModel);
     }
 
     public async Task<IActionResult> AddVote(int uservote, int movieid, string redirectUrl = "/")

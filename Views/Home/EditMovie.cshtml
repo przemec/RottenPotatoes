@@ -1,42 +1,44 @@
-﻿@model MovieAddModel
+﻿@model MovieEditModel
 @{
-    ViewData["Title"] = "Add movie";
+    ViewData["Title"] = "Edit movie";
 }
 
 <div class="row" style="justify-content: center; margin: auto">
     <div class="col-md-7" style="background: #eee; padding: 20px; border-radius: 20px;">
         <form method="post">
             <h1 class="text-center">@ViewData["Title"]</h1>
-            <h4 class="text-center">Create a new movie and insert it into database.</h4>
+            <h4 class="text-center">Edit in database selected movie.</h4>
             <hr />
+            <input asp-for="MovieId" type="hidden" value="@Model.MovieId" />
+            <input asp-for="MovieDescId" type="hidden" value="@Model.MovieDescId" />
             <div class="form-group">
                 <label asp-for="Title" class="text-center" style="width: 100%;"></label>
-                <input asp-for="Title" class="form-control text-center" />
+                <input asp-for="Title" class="form-control text-center" value="@Model.Title" />
                 <span asp-validation-for="Title" class="text-danger text-center"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Director" class="text-center" style="width: 100%;"></label>
-                <input asp-for="Director" class="form-control text-center" />
+                <input asp-for="Director" class="form-control text-center" value="@Model.Director" />
                 <span asp-validation-for="Director" class="text-danger text-center"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Producer" class="text-center" style="width: 100%;"></label>
-                <input asp-for="Producer" class="form-control text-center"/>
+                <input asp-for="Producer" class="form-control text-center" value="@Model.Producer" />
                 <span asp-validation-for="Producer" class="text-danger text-center"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ImageSrc" class="text-center" style="width: 100%;">Image url</label>
-                <input asp-for="ImageSrc" class="form-control text-center"/>
+                <input asp-for="ImageSrc" class="form-control text-center" value="@Model.ImageSrc" />
                 <span asp-validation-for="ImageSrc" class="text-danger text-center"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Genre" class="text-center" style="width: 100%;"></label>
-                <input asp-for="Genre" class="form-control text-center"/>
+                <input asp-for="Genre" class="form-control text-center" value="@Model.Genre" />
                 <span asp-validation-for="Genre" class="text-danger text-center"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Runtime" class="text-center" style="width: 100%;"></label>
-                <input asp-for="Runtime" class="form-control text-center"/>
+                <input asp-for="Runtime" class="form-control text-center" value="@Model.Runtime" />
                 <span asp-validation-for="Runtime" class="text-danger text-center"></span>
             </div>
             <div class="form-group">
@@ -47,7 +49,7 @@
                 }) 
                 <span asp-validation-for="Desc" class="text-danger text-center"></span>
             </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%;">Add</button>
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px; width: 100%;">Edit</button>
         </form>
     </div>
 </div>

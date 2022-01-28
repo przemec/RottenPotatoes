@@ -49,15 +49,16 @@
                     @if (User.Identity.Name == "Admin")
                     {
                         <td>
+                            <a class="btn btn-primary text-white" asp-controller="Home" asp-action="EditMovie" asp-route-movieid="@movie.MovieId">Edit</a>
                             @Html.ActionLink(
-                                "Delete", 
-                                "DeleteMovie", 
+                                "Remove", 
+                                "RemoveMovie", 
                                 "Home", 
                                 new { movieid = @movie.MovieId }, 
                                 new { 
-                                    onclick = $"return confirm('Do you really want to delete {@movie.Title} from database?')", 
-                                    @style="text-decoration: none; color: white; width: 90px;" ,
-                                    @class="btn btn-primary text-white"
+                                    onclick = $"return confirm('Do you really want to remove {@movie.Title} from database?')", 
+                                    @style="text-decoration: none; width: 90px;",
+                                    @class="btn btn-outline-primary"
                                 }
                             )
                         </td>
@@ -75,7 +76,7 @@
                             "Home", 
                             null, 
                             new {
-                                @style="text-decoration: none; color: white; width: 90px;",
+                                @style="text-decoration: none; color: white; width: 154px;",
                                 @class="btn btn-success text-white"
                             }
                         )

@@ -25,6 +25,16 @@ namespace rottenpotatoes.Models
       Genre = genre;
       Runtime = runtime;
     }
+    public Movie(int movieid, string title, string director, string producer, string imagesrc, string genre, string runtime)
+    {
+      MovieId = movieid;
+      Title = title;
+      Director = director;
+      Producer = producer;
+      ImageSrc = imagesrc;
+      Genre = genre;
+      Runtime = runtime;
+    }
   }
   
   public class Description
@@ -36,6 +46,12 @@ namespace rottenpotatoes.Models
     public Description() { }
     public Description(int movieid, string description)
     {
+      MovieId = movieid;
+      Desc = description;
+    }
+    public Description(int id, int movieid, string description)
+    {
+      Id = id;
       MovieId = movieid;
       Desc = description;
     }
