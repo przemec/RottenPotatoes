@@ -22,7 +22,7 @@ There are also 5 base user accounts: `userX` (where `X` stands for numbers from 
 
 ### Using the API
 
-You can access Api endpoints when the app is running. They are available by default by sending requests to `http://localhost:5001/Api/ENDPOINT`, where ENDPOINT stands for:
+You can access Api endpoints when the app is running. They are available by default by sending `GET` requests to `https://localhost:5001/Api/ENDPOINT`, where `ENDPOINT` stands for:
 - `ListTitles` - get list of all movie titles that are currently in database
 - `GetTitlesWithIds`- get list of all titles with their coresponding IDs
 - `GetTitlesWithVotes` - get list of all movies with their user votes
